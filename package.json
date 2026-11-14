@@ -1,0 +1,50 @@
+{
+  "name": "openchamber-agent-graph",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "openchamber": {
+    "apiVersion": 1,
+    "engines": {
+      "openchamber": ">=2.6.0"
+    },
+    "id": "agent-graph",
+    "name": "Agent Graph",
+    "icon": "node-tree",
+    "contributes": {
+      "panel": {
+        "entry": "panel/index.html"
+      },
+      "capabilities": [
+        "sessions"
+      ],
+      "service": {
+        "entry": "service/main.js",
+        "runtime": "host",
+        "provides": [
+          "opencode"
+        ]
+      }
+    }
+  },
+  "scripts": {
+    "build": "bun run build:panel && bun run build:service",
+    "check": "openchamber-guest-check .",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "preview": "openchamber-guest-bundle dev/preview.ts dev/preview.js",
+    "build:panel": "openchamber-guest-bundle panel/main.ts panel/main.js",
+    "build:service": "bun build service/main.ts --target=node --format=esm --outfile=service/main.js",
+    "pack": "sh scripts/pack.sh"
+  },
+  "dependencies": {
+    "@openchamber/sdk": "^2.7.0",
+    "d3-force": "3.0.1"
+  },
+  "devDependencies": {
+    "@happy-dom/global-registrator": "21.0.4",
+    "@types/bun": "^1.4.4",
+    "@types/d3-force": "3.0.10",
+    "typescript": "^7.0.2"
+  }
+}
